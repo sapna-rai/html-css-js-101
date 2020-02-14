@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            background-color: crimson;
+            color: white;
+        }
+        h1 {
+            text-align: center;
+            color: white;
+        }
+       
+        .div-head{
+            text-align: center;
+        }
+        .title {
+            margin: 5px;
+        }
+        .mark-complete{
+            color: green;
+            font-weight: bolder;
+        }
+        .mark-incomplete{
+            color: blue;
+            font-weight: bolder;
+        }
+        .mark-delete{
+            color: red;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>My To-do List</h1>
+    <div class="div-head">
+        <button class="addButton" type="button">add new task</button>
+    </div>
+    <div class="div-body">
+        <ul class="unorderedList"></ul>
+    </div>
+
+    <script type="text/javascript">
+
+        function Todo(title = '', status = 'PENDING') {
+            this.status = status;
+            this.title = title;
+
+            this.markComplete = function () {
+                this.status = 'COMPLETED';
+            };
+            this.markIncomplete = function () {
+                this.status = 'PENDING';
+            };
+            this.setTitle = function (title) {
+                this.title = title;
+            };
+
+        }
+
+        var myTodoList = [];
+
+        var newtodo = document.querySelector(".addButton");
+        var list = document.querySelector(".unorderedList");
+
+
+
+        newtodo.addEventListener('click', function () {
+            var newTitle = window.prompt('Enter Title:');
+            var todo = new Todo(newTitle);
+            var newList = document.createElement("li");
+            newList.innerHTML = `<span class="title">${newTitle}</span>
+                                <span class="status">${todo.status}</span>
+                                <button class="mark-complete" type="button">✔</button>
+                                <button class="mark-incomplete" type="button">!</button>
+                                <button class="mark-delete" type="button">x</button>`;
+            list.appendChild(newList);
+            myTodoList.push(todo);
+
+            var buttonComplete = newList.querySelector(".mark-complete");
+            var buttonIncomplete = newList.querySelector(".mark-incomplete");
+            var buttonDelete = newList.querySelector(".mark-delete");
+            var newstatus = newList.querySelector(".status");
+
+            buttonComplete.addEventListener('click', function () {
+                todo.markComplete();
+                newstatus.innerHTML = todo.status;
+            });
+            buttonIncomplete.addEventListener('click', function () {
+                todo.markIncomplete();
+                newstatus.innerHTML = todo.status;
+            });
+            buttonDelete.addEventListener('click', function () {
+                var itemIndex = myTodoList.indexOf(todo);
+                myTodoList.splice(itemIndex, 1);
+                list.removeChild(newList);
+            });
+        });
+
+
+    </script>
+</body>
+
+</html>
