@@ -1,0 +1,17 @@
+/* .gallery-ctr {
+  width: 600px;
+  margin: auto;
+  height: 400px;
+  background-color: beige;
+} */
+.main-img-container {
+max-width: 100%;
+margin: auto;
+} 
+.thumbnails-container img {
+  display: inline;
+  max-width: 20%;
+  /* max-height: 25%; */
+  margin: 10px;
+  padding: 10px;
+}
