@@ -6,35 +6,43 @@
 </head>
 
 <body>
-    <!-- <div style="position: fixed;width: 100%; height: 100%; opacity: 0.5;background-color: red;"></div> -->
     <div class="gallery-ctr">
     </div>
 </body>
 <template id="overlay-container">
-    <div class="full-overlay">
-        <div class="close-button">X</div>
-        <span class="arrow-left"><</span>
-        <img class="full-image" src="" />
-        <span class="arrow-right">></span>
+    <div class="full-overlay full-height-parent">
+        <div class="close-button" style="height: 50px;">X</div>
+        <div class="relative" style="height: calc(100% - 50px)">
+            <div class="full-image-ctr">
+                <span class="valign-mid arrow-left full-height-parent">&lt;</span>
+                <span class="valign-mid full-image-block">
+                    <img class="full-image" src="" />
+                </span>
+                <span class="valign-mid arrow-right full-height-parent">&gt;</span>
+            </div>
+        </div>
     </div>
 </template>
 <script src="./js/gallery.js"></script>
 
-    <script>
-        var images = [
-            './imgs/1.jpg',
-            './imgs/2.jpg',
-            './imgs/3.jpg',
-            './imgs/4.jpg',
-            './imgs/5.jpg',
-            './imgs/6.jpg',
-            './imgs/7.jpg',
-            './imgs/8.jpg',
-        ];
-        let container = document.querySelector('.gallery-ctr');
+<script>
+    var images = [
+        './imgs/1.jpg',
+        './imgs/2.jpg',
+        './imgs/3.jpg',
+        './imgs/4.jpg',
+        './imgs/5.jpg',
+        './imgs/6.jpg',
+        './imgs/7.jpg',
+        './imgs/8.jpg',
+        './imgs/9.jpg',
+        './imgs/10.jpg'
+    ];
+    let container = document.querySelector('.gallery-ctr');
 
-        let myGallery = new Gallery(images, container);
-        
+    let myGallery = new Gallery(images, container);
 
-    </script>
+
+</script>
+
 </html>
