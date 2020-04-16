@@ -24,15 +24,11 @@ Gallery.prototype.createDomPlaceholders = function () {
     this.rightarrowButton = mainImageDocFragment.querySelector('.full-overlay .arrow-right');
     document.body.appendChild(mainImageDocFragment);
 
-
-
-
     this.thumbnailsContainer = document.createElement('div');
     this.thumbnailsContainer.classList.add("thumbnails-container");
     this.container.appendChild(this.thumbnailsContainer);
 
 };
-
 
 Gallery.prototype.loadThumbnails = function () {
     for (let index in this.images) {
@@ -44,6 +40,24 @@ Gallery.prototype.loadThumbnails = function () {
     }
 };
 
+Gallery.prototype.loadImageAtIndex = function (index) {
+    let url = this.images[index];
+    this.mainImage.src = url;
+    this.mainImage.dataset.index = index;
+};
+
+Gallery.prototype.loadPreviousImage = function () {
+    let index = parseInt(this.mainImage.dataset.index);
+    let previousIndex = index == 0 ? this.images.length - 1 : index - 1;
+    this.loadImageAtIndex(previousIndex);
+};
+
+Gallery.prototype.loadNextImage = function () {
+    let index = parseInt(this.mainImage.dataset.index);
+    let nextIndex = index == self.images.length - 1 ? 0 : index + 1;
+    this.loadImageAtIndex(nextIndex);
+};
+
 Gallery.prototype.startListeningOnThumbnails = function () {
     // save the reference of this so that this will not  change its definition
     var self = this;
@@ -52,45 +66,25 @@ Gallery.prototype.startListeningOnThumbnails = function () {
             self.mainImage.src = event.target.src;
             self.mainImgContainer.style.display = "block";
             self.mainImage.dataset.index = event.target.dataset.index;
-
         }
     })
     this.closeButton.addEventListener('click', function () {
         self.mainImgContainer.style.display = "none";
     })
     this.leftarrowButton.addEventListener('click', function (event) {
-        let index = parseInt(self.mainImage.dataset.index);
-        let previousIndex = index == 0 ? self.images.length - 1 : index - 1;
-        let previousUrl = self.images[previousIndex];
-        self.mainImage.src = previousUrl;
-        self.mainImage.dataset.index = previousIndex;
+        self.loadPreviousImage();
     })
     this.rightarrowButton.addEventListener('click', function (event) {
-        let index = parseInt(self.mainImage.dataset.index);
-        let nextindex = index == self.images.length - 1 ? 0 : index + 1;
-        let nextUrl = self.images[nextindex];
-        self.mainImage.src = nextUrl;
-        self.mainImage.dataset.index = nextindex;
-
+        self.loadNextImage();
     })
     document.addEventListener('keydown', function (event) {
         if (event.keyCode == 27) {
             self.mainImgContainer.style.display = "none";
         }
         else if (event.keyCode == 37) {
-            let index = parseInt(self.mainImage.dataset.index);
-            let previousIndex = index == 0 ? self.images.length - 1 : index - 1;
-            let previousUrl = self.images[previousIndex];
-            self.mainImage.src = previousUrl;
-            self.mainImage.dataset.index = previousIndex;
+            self.loadPreviousImage();
         } else if (event.keyCode == 39) {
-            let index = parseInt(self.mainImage.dataset.index);
-            let nextindex = index == self.images.length - 1 ? 0 : index + 1;
-            let nextUrl = self.images[nextindex];
-            self.mainImage.src = nextUrl;
-            self.mainImage.dataset.index = nextindex;
+            self.loadNextImage();
         }
     })
-
-
 };
